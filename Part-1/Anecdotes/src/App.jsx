@@ -12,21 +12,43 @@ const App = () => {
         "The only way to go fast, is to go well.",
     ];
 
-    const [selected, setSelected] = useState(0);
+    const calcRandom = () => {
+        return Math.floor(Math.random() * anecdotes.length);
+    };
+
+    const [selected, setSelected] = useState(calcRandom());
     const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
 
     const getRandom = () => {
-        setSelected(Math.floor(Math.random() * anecdotes.length));
+        setSelected(calcRandom());
     };
+
+    const calcMax = () => {
+        let mx = 0;
+        let idx = -1;
+
+        for (let i = 0; i < anecdotes.length; i++) {
+            if (votes[i] >= mx) {
+                mx = votes[i];
+                idx = i;
+            }
+        }
+
+        return idx;
+    };
+
+    let highest = calcMax();
 
     const upVote = () => {
         let newVotes = [...votes];
         newVotes[selected]++;
         setVotes(newVotes);
+        highest = calcMax();
     };
 
     return (
         <>
+            <h1>Anecdote of the day</h1>
             <div>{anecdotes[selected]}</div>
             <div>has {votes[selected]} votes</div>
             <button type="button" onClick={upVote}>
@@ -35,6 +57,9 @@ const App = () => {
             <button type="button" onClick={getRandom}>
                 next quote
             </button>
+            <h1>Anectode with most votes</h1>
+            <div>{anecdotes[highest]}</div>
+            <div>has {votes[highest]} votes</div>
         </>
     );
 };
