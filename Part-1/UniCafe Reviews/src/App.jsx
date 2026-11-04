@@ -6,15 +6,17 @@ const Statistics = ({ good, neutral, bad }) => {
     const pos = (good * 100) / all;
 
     return (
-        <>
-            <h2>Stats</h2>
-            <p>Good {good}</p>
-            <p>Neutral {neutral}</p>
-            <p>Bad {bad}</p>
-            <p>All {all}</p>
-            <p>Average {avg || 0}</p>
-            <p>Positive {pos || 0} %</p>
-        </>
+        (all && (
+            <>
+                <h2>Stats</h2>
+                <p>Good {good}</p>
+                <p>Neutral {neutral}</p>
+                <p>Bad {bad}</p>
+                <p>All {all}</p>
+                <p>Average {avg || 0}</p>
+                <p>Positive {pos || 0} %</p>
+            </>
+        )) || <p>No Feedback</p>
     );
 };
 
