@@ -10,7 +10,14 @@ const App = () => {
 
     const onPersonAdd = (e) => {
         e.preventDefault();
-        setPersons((prevPersons) => [...prevPersons, { name: newName }]);
+        const test = persons.reduce((acc, person) => {
+            return acc || person.name === newName;
+        }, false);
+        if (test) {
+            alert(`${newName} already exists`);
+        } else {
+            setPersons((prevPersons) => [...prevPersons, { name: newName }]);
+        }
         setNewName("");
     };
 
