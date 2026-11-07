@@ -1,66 +1,7 @@
 import { useState } from "react";
-
-const Filter = ({ filter, setFilter }) => {
-    const onFilterInput = (e) => {
-        setFilter(e.target.value);
-    };
-
-    return (
-        <div>
-            filter: <input value={filter} onChange={onFilterInput} />
-        </div>
-    );
-};
-
-const Form = ({ addPerson }) => {
-    const [newName, setNewName] = useState("");
-    const [newNumber, setNewNumber] = useState("");
-
-    const onPersonInput = (e) => {
-        setNewName(e.target.value);
-    };
-    const onNumberInput = (e) => {
-        setNewNumber(e.target.value);
-    };
-
-    const onPersonAdd = (e) => {
-        e.preventDefault();
-        addPerson({ name: newName, number: newNumber });
-        setNewName("");
-        setNewNumber("");
-    };
-
-    return (
-        <form>
-            <div>
-                name: <input value={newName} onChange={onPersonInput} />
-                <br />
-                number: <input value={newNumber} onChange={onNumberInput} />
-            </div>
-            <div>
-                <button type="submit" onClick={onPersonAdd}>
-                    add
-                </button>
-            </div>
-        </form>
-    );
-};
-
-const Render = ({ persons, filter }) => {
-    return (
-        <>
-            {persons
-                .filter((person) => {
-                    return person.name.includes(filter);
-                })
-                .map((person) => (
-                    <p key={person.name}>
-                        {person.name} {person.number}
-                    </p>
-                ))}
-        </>
-    );
-};
+import Filter from "./Filter";
+import Form from "./Form";
+import Render from "./Render";
 
 const App = () => {
     const [filter, setFilter] = useState("");
