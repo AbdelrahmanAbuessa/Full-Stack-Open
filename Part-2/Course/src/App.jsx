@@ -33,20 +33,15 @@ const App = () => {
                 exercises: 14,
                 id: 6,
             },
-            {
-                name: "State of a component",
-                exercises: 14,
-                id: 7,
-            },
-            {
-                name: "State of a component",
-                exercises: 14,
-                id: 8,
-            },
         ],
     };
 
     const Course = ({ course }) => {
+        let total = 0;
+        for (let i = 0; i < course.parts.length; i++) {
+            total += course.parts[i].exercises;
+        }
+
         const Header = (props) => {
             return <h1>{props.course}</h1>;
         };
@@ -69,21 +64,15 @@ const App = () => {
             );
         };
 
-        const Total = (props) => {
-            return (
-                <p>
-                    Number of exercises{" "}
-                    {props.content[0].exercises +
-                        props.content[1].exercises +
-                        props.content[2].exercises}
-                </p>
-            );
+        const Total = ({ total }) => {
+            return <p>Number of exercises {total}</p>;
         };
 
         return (
             <div>
                 <Header course={course.name} />
                 <Content content={course.parts} />
+                <Total total={total} />
             </div>
         );
     };
