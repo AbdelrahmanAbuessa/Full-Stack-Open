@@ -37,10 +37,9 @@ const App = () => {
     };
 
     const Course = ({ course }) => {
-        let total = 0;
-        for (let i = 0; i < course.parts.length; i++) {
-            total += course.parts[i].exercises;
-        }
+        const total = course.parts.reduce((acc, { exercises: ex }) => {
+            return acc + ex;
+        }, 0);
 
         const Header = (props) => {
             return <h1>{props.course}</h1>;
