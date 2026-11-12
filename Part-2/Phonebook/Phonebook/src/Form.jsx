@@ -1,10 +1,11 @@
 import { useState } from "react";
+import axios from "axios";
 
 const Form = ({ addPerson }) => {
     const [newName, setNewName] = useState("");
     const [newNumber, setNewNumber] = useState("");
 
-    const onPersonInput = (e) => {
+    const onNameInput = (e) => {
         setNewName(e.target.value);
     };
     const onNumberInput = (e) => {
@@ -13,7 +14,9 @@ const Form = ({ addPerson }) => {
 
     const onPersonAdd = (e) => {
         e.preventDefault();
-        addPerson({ name: newName, number: newNumber });
+        const newPerson = { name: newName, number: newNumber };
+        addPerson(newPerson);
+        axios.post("http://localhost:3001/persons", newPerson);
         setNewName("");
         setNewNumber("");
     };
@@ -21,7 +24,7 @@ const Form = ({ addPerson }) => {
     return (
         <form onSubmit={onPersonAdd}>
             <div>
-                name: <input value={newName} onChange={onPersonInput} />
+                name: <input value={newName} onChange={onNameInput} />
                 <br />
                 number: <input value={newNumber} onChange={onNumberInput} />
             </div>
