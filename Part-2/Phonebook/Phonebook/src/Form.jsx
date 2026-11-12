@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import backend from "./backend.js";
-
 const Form = ({ addPerson }) => {
     const [newName, setNewName] = useState("");
     const [newNumber, setNewNumber] = useState("");
@@ -15,10 +13,10 @@ const Form = ({ addPerson }) => {
 
     const onPersonAdd = (e) => {
         e.preventDefault();
-        const newPerson = { name: newName, number: newNumber };
-        backend.sendData(newPerson).then((response) => addPerson(response));
-        setNewName("");
-        setNewNumber("");
+        if (addPerson({ name: newName, number: newNumber })) {
+            setNewName("");
+            setNewNumber("");
+        }
     };
 
     return (

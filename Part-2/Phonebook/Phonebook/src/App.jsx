@@ -9,15 +9,44 @@ const App = () => {
     const [filter, setFilter] = useState("");
     const [persons, setPersons] = useState([]);
 
-    const addPerson = ({ name, number, id }) => {
-        const test = persons.reduce((acc, person) => {
-            return acc || person.name === name;
-        }, false);
+    const addPerson = ({ name, number }) => {
+        const test = persons.find(
+            (person) => person.name.toLowerCase() === name.toLowerCase(),
+        );
 
         if (test) {
-            alert(`${name} already exists`);
+            const newNumber = number;
+            const { id } = test;
+            if (window.confirm(`modify person?`)) {
+                backend
+                    .mutateData(id, {
+                        name,
+                        number: newNumber,
+                        id,
+                    })
+                    .then(() =>
+                        setPersons((prevPersons) =>
+                            prevPersons.map((person) =>
+                                person.id === id
+                                    ? { ...person, number: newNumber }
+                                    : person,
+                            ),
+                        ),
+                    );
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            setPersons((prevPersons) => [...prevPersons, { name, number, id }]);
+            backend
+                .sendData({ name, number })
+                .then(({ name, number, id }) =>
+                    setPersons((prevPersons) => [
+                        ...prevPersons,
+                        { name, number, id },
+                    ]),
+                );
+            return true;
         }
     };
 
@@ -35,6 +64,7 @@ const App = () => {
 
     useEffect(() => {
         backend.getData().then((data) => {
+            console.log(data);
             setPersons(data);
         });
     }, []);

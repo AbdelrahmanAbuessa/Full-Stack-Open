@@ -6,7 +6,7 @@ const Render = ({ persons, filter, onDelete }) => {
                     return person.name.toLowerCase().includes(filter);
                 })
                 .map((person) => (
-                    <p key={person.name}>
+                    <p key={person.id}>
                         {person.name} {person.number}
                         <button id={person.id} onClick={onDelete}>
                             delete
