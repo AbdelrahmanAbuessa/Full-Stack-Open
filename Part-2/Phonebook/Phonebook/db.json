@@ -29,6 +29,11 @@
       "name": "testttttt",
       "number": "123456789",
       "id": "MkzT2XOq7FA"
+    },
+    {
+      "name": "exporting backend logic",
+      "number": "22221111",
+      "id": "qdXjR6egNKU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

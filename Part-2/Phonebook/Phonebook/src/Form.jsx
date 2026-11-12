@@ -1,5 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
+
+import backend from "./backend.js";
+const URL = "http://localhost:3001/persons";
 
 const Form = ({ addPerson }) => {
     const [newName, setNewName] = useState("");
@@ -16,7 +18,7 @@ const Form = ({ addPerson }) => {
         e.preventDefault();
         const newPerson = { name: newName, number: newNumber };
         addPerson(newPerson);
-        axios.post("http://localhost:3001/persons", newPerson);
+        backend.sendData(URL, newPerson);
         setNewName("");
         setNewNumber("");
     };

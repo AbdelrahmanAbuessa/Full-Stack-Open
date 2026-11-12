@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Filter from "./Filter";
 import Form from "./Form";
 import Render from "./Render";
+
+import backend from "./backend.js";
+const URL = "http://localhost:3001/persons";
 
 const App = () => {
     const [filter, setFilter] = useState("");
@@ -21,8 +23,8 @@ const App = () => {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:3001/persons").then((response) => {
-            setPersons(response.data);
+        backend.getData(URL).then((data) => {
+            setPersons(data);
         });
     }, []);
 
