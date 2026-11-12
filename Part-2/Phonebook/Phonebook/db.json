@@ -2,38 +2,18 @@
   "persons": [
     {
       "name": "Bandit Heeler",
-      "number": "040-123456",
-      "id": "1"
+      "number": "123456789",
+      "id": "AfD9x5oZuKo"
     },
     {
       "name": "Chilli Heeler",
-      "number": "39-44-5323523",
-      "id": "2"
-    },
-    {
-      "name": "Stripe Heeler",
-      "number": "12-43-234345",
-      "id": "3"
+      "number": "987654321",
+      "id": "2zzMvexoMZM"
     },
     {
       "name": "Diane Foxington",
-      "number": "39-23-6423122",
-      "id": "4"
-    },
-    {
-      "name": "Trixie Heeler",
-      "number": "676767",
-      "id": "xKUgMADs1U0"
-    },
-    {
-      "name": "testttttt",
-      "number": "123456789",
-      "id": "MkzT2XOq7FA"
-    },
-    {
-      "name": "exporting backend logic",
-      "number": "22221111",
-      "id": "qdXjR6egNKU"
+      "number": "1",
+      "id": "I2utYvPeE9c"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

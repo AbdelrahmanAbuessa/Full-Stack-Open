@@ -1,4 +1,4 @@
-const Render = ({ persons, filter }) => {
+const Render = ({ persons, filter, onDelete }) => {
     return (
         <>
             {persons
@@ -8,6 +8,9 @@ const Render = ({ persons, filter }) => {
                 .map((person) => (
                     <p key={person.name}>
                         {person.name} {person.number}
+                        <button id={person.id} onClick={onDelete}>
+                            delete
+                        </button>
                     </p>
                 ))}
         </>

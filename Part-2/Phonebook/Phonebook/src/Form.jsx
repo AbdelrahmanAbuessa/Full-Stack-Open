@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import backend from "./backend.js";
-const URL = "http://localhost:3001/persons";
 
 const Form = ({ addPerson }) => {
     const [newName, setNewName] = useState("");
@@ -17,8 +16,7 @@ const Form = ({ addPerson }) => {
     const onPersonAdd = (e) => {
         e.preventDefault();
         const newPerson = { name: newName, number: newNumber };
-        addPerson(newPerson);
-        backend.sendData(URL, newPerson);
+        backend.sendData(newPerson).then((response) => addPerson(response));
         setNewName("");
         setNewNumber("");
     };
