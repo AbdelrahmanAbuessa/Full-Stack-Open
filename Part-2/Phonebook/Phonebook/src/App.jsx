@@ -10,14 +10,20 @@ const App = () => {
     const [filter, setFilter] = useState("");
     const [persons, setPersons] = useState([]);
     const [message, setMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
 
-    const makeMessage = (error, message) => {
-        if (!error) {
-            setMessage(message);
-            setTimeout(() => {
-                setMessage(null);
-            }, 5000);
-        }
+    const makeMessage = (message) => {
+        setMessage(message);
+        setTimeout(() => {
+            setMessage(null);
+        }, 5000);
+    };
+
+    const makeErrorMessage = (message) => {
+        setErrorMessage(message);
+        setTimeout(() => {
+            setErrorMessage(null);
+        }, 5000);
     };
 
     const addPerson = ({ name, number }) => {
@@ -43,11 +49,11 @@ const App = () => {
                                     : person,
                             ),
                         );
-                        makeMessage(
-                            false,
-                            `${name} was updated with ${newNumber}`,
-                        );
-                    });
+                        makeMessage(`${name} was updated with ${newNumber}`);
+                    })
+                    .catch(() =>
+                        makeErrorMessage(`${test.name} was already deleted`),
+                    );
                 return true;
             } else {
                 return false;
@@ -58,24 +64,29 @@ const App = () => {
                     ...prevPersons,
                     { name, number, id },
                 ]);
-                makeMessage(false, `${name} was added`);
+                makeMessage(`${name} was added`);
             });
             return true;
         }
     };
 
     const onDelete = (e) => {
-        if (window.confirm(`delete person with id: ${e.target.id}?`)) {
-            backend.deleteData(e.target.id).then(() =>
-                setPersons((prevPersons) => {
-                    return prevPersons.filter((person) => {
-                        if (person.id === e.target.id) {
-                            makeMessage(false, `${person.name} was deleted`);
-                        }
-                        return person.id != e.target.id;
+        const lookup = persons.find((person) => person.id === e.target.id);
+
+        if (window.confirm(`delete person: ${lookup.name}?`)) {
+            backend
+                .deleteData(lookup.id)
+                .then((data) => {
+                    setPersons((prevPersons) => {
+                        return prevPersons.filter((person) => {
+                            return person.id != data.id;
+                        });
                     });
-                }),
-            );
+                    makeMessage(`${data.name} was deleted`);
+                })
+                .catch((error) => {
+                    makeErrorMessage(`${lookup.name} was already deleted`);
+                });
         }
     };
 
@@ -90,6 +101,7 @@ const App = () => {
         <div>
             <h2>Phonebook</h2>
             {message && <Message message={message} />}
+            {errorMessage && <Message message={errorMessage} error />}
             <Filter value={filter} setFilter={setFilter} />
             <h2>Add New</h2>
             <Form addPerson={addPerson} />

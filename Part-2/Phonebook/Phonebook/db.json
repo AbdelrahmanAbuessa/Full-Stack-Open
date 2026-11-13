@@ -14,21 +14,6 @@
       "name": "Diane Foxington",
       "number": "1",
       "id": "I2utYvPeE9c"
-    },
-    {
-      "name": "Test Message",
-      "number": "555",
-      "id": "qw3mqie2mOY"
-    },
-    {
-      "name": "test again",
-      "number": "45",
-      "id": "gdtn2AIJfic"
-    },
-    {
-      "name": "asdf",
-      "number": "5",
-      "id": "rjNIi_sN90E"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
